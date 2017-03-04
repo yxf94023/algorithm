@@ -1,6 +1,6 @@
 /*******************************************************************************
  *\file isa_max_length.cc
- *\detail ×î³¤Çø¼äµ÷¶ÈËã·¨£¬ÔÚËùÓĞµÄÇø¼äÖĞÑ¡Ôñ²»ÖØµşµÄÇø¼äµÄ×î´ó³¤¶È
+ *\detail æœ€é•¿åŒºé—´è°ƒåº¦ç®—æ³•ï¼Œåœ¨æ‰€æœ‰çš„åŒºé—´ä¸­é€‰æ‹©ä¸é‡å çš„åŒºé—´çš„æœ€å¤§é•¿åº¦
  *\date 2017/03/11
  ******************************************************************************/
  
@@ -9,31 +9,31 @@
  
 /**
  *\struct
- *\brief Çø¼ä½á¹¹Ìå
+ *\brief åŒºé—´ç»“æ„ä½“
  */
 typedef struct interval_schedule_st{
 	 
-	unsigned int	uint_beg;	///< Çø¼ä ÆğÊ¼Î»ÖÃ
-	unsigned int	uint_end;	///< Çø¼ä ÖÕÖ¹Î»ÖÃ
+	unsigned int	uint_beg;	///< åŒºé—´ èµ·å§‹ä½ç½®
+	unsigned int	uint_end;	///< åŒºé—´ ç»ˆæ­¢ä½ç½®
 }interval_schedule_st;
 
 /**
  *\struct
- *\brief ×î³¤Çø¼äµ÷¶ÈËã·¨ ½á¹û¼¯
+ *\brief æœ€é•¿åŒºé—´è°ƒåº¦ç®—æ³• ç»“æœé›†
  */
 typedef struct isa_result_set{
 	
-	unsigned int 	max_length;		///< ×î´ó³¤¶È
-	unsigned int 	uint_cnt;		///< °üº¬µÄÇø¼äÊıÁ¿
-	unsigned int	isa_array[30];	///< Çø¼äµÄ¾ßÌåĞÅÏ¢£¬ ÅÅĞòºóµÄÏÂ±êÖµ
+	unsigned int 	max_length;		///< æœ€å¤§é•¿åº¦
+	unsigned int 	uint_cnt;		///< åŒ…å«çš„åŒºé—´æ•°é‡
+	unsigned int	isa_array[30];	///< åŒºé—´çš„å…·ä½“ä¿¡æ¯ï¼Œ æ’åºåçš„ä¸‹æ ‡å€¼
 }isa_result_set;
 
-static interval_schedule_st	s_isa_array[30];	///< ÊäÈë»º³åÇø
-static unsigned int s_isa_cnt = 0;				///< ÊäÈëÇø¼ä¸öÊı
-static isa_result_set s_isa_res[30];			///< ×îÖÕµÄ½á¹û¼¯
+static interval_schedule_st	s_isa_array[30];	///< è¾“å…¥ç¼“å†²åŒº
+static unsigned int s_isa_cnt = 0;				///< è¾“å…¥åŒºé—´ä¸ªæ•°
+static isa_result_set s_isa_res[30];			///< æœ€ç»ˆçš„ç»“æœé›†
 
 /**
- *\brief »ñÈ¡ÊäÈëĞÅÏ¢
+ *\brief è·å–è¾“å…¥ä¿¡æ¯
  */
 static void isa_get_inputs(void){
 
@@ -50,7 +50,7 @@ static void isa_get_inputs(void){
 }
 
 /**
- *\brief ´òÓ¡ĞÅÏ¢
+ *\brief æ‰“å°ä¿¡æ¯
  */
 static void isa_print_inputs(void){
 
@@ -63,8 +63,8 @@ static void isa_print_inputs(void){
 }
 
 /**
- *\brief ÅÅĞò
- *\detail  ¸ù¾İÇø¼äµÄ½áÊøÊ±¼ä½øĞĞÅÅĞò²Ù×÷
+ *\brief æ’åº
+ *\detail  æ ¹æ®åŒºé—´çš„ç»“æŸæ—¶é—´è¿›è¡Œæ’åºæ“ä½œ
  */
 static void isa_sort_by_endpoint(void){
 		
@@ -91,11 +91,11 @@ static void isa_sort_by_endpoint(void){
 
 
 /**
- *\brief »ñÈ¡²»¸²¸ÇµÄÇø¼ä
- *\detail ´ÓÅÅĞòºÃµÄ Çø¼äÖĞÕÒµ½²»¸²¸ÇµÄÄÇ¸öÇø¼ä£¬ ·µ»ØÇø¼äÏÂ±êÖ¾
- *\param[in] idx ´ı²éÕÒµÄÏÂ±êÖµ
- *\retval >= 0 ÏÂ±êÖ¾ 
- *\retval < 0 ²»´æÔÚ²»¸²¸ÇµÄÇø¼ä
+ *\brief è·å–ä¸è¦†ç›–çš„åŒºé—´
+ *\detail ä»æ’åºå¥½çš„ åŒºé—´ä¸­æ‰¾åˆ°ä¸è¦†ç›–çš„é‚£ä¸ªåŒºé—´ï¼Œ è¿”å›åŒºé—´ä¸‹æ ‡å¿—
+ *\param[in] idx å¾…æŸ¥æ‰¾çš„ä¸‹æ ‡å€¼
+ *\retval >= 0 ä¸‹æ ‡å¿— 
+ *\retval < 0 ä¸å­˜åœ¨ä¸è¦†ç›–çš„åŒºé—´
  */
 static int get_noncover_interval(unsigned int idx){
 	
@@ -112,11 +112,11 @@ static int get_noncover_interval(unsigned int idx){
 	return -1;
 }
 /**
- *\brief ½øĞĞÇø¼äÑ¡È¡
- *\detail Ëã·¨²ÉÓÃ¶¯Ì¬¹æ»®£¨dp£©Çó½â£¬Ë¼Â·ÊÇ£¬¶ÔÓÚÇø¼äiÑ¡È¡Óë·ñ£¬\
- *	1. Èç¹ûÑ¡È¡Çø¼äi£¬±íÊ¾µÚiÇø¼ä´æÔÚÓëÇ°Ãæi-1¸öÇø¼ä²»ÖØµşµÄÇé¿ö£¬ÄÇÃ´ĞèÒªÔÚi-1¸öÇø¼äÖĞÕÒµ½Ò»¸öÎ»ÖÃ²»ºÍµÚi¸öÇø¼äÓĞ¸²¸ÇµÄÎ»ÖÃ£¬
- *	¼ÙÉèÕâ¸öÇø¼äÎªk£¬ÄÇÃ´Çø¼äi±»Ñ¡ÖĞºóµÄÈ¡Öµ¾ÍÊÇ max(dp[k] + 1,dp[i-1])È¡ÆäÖĞ½Ï´óµÄ£»Èç¹û¶¼²»³åÍ»ÄÇÃ´k = i-1ÁË£¬½áÂÛÒÀÈ»³ÉÁ¢¡£
- *	2. Èç¹û²»Ñ¡ÔñÇø¼äi£¬ ±íÊ¾Çø¼äi²»´æÔÚºÍÇ°Ãæi-1¸öÇø¼ä²»ÖØµşµÄÇé¿ö£¬ÄÇÃ´×î´óÖµ¾ÍÊÇmax(dp[i-1], Ei - Bi)£¬È¡ÆäÖĞ½Ï´óµÄ¡£
+ *\brief è¿›è¡ŒåŒºé—´é€‰å–
+ *\detail ç®—æ³•é‡‡ç”¨åŠ¨æ€è§„åˆ’ï¼ˆdpï¼‰æ±‚è§£ï¼Œæ€è·¯æ˜¯ï¼Œå¯¹äºåŒºé—´ié€‰å–ä¸å¦ï¼Œ\
+ *	1. å¦‚æœé€‰å–åŒºé—´iï¼Œè¡¨ç¤ºç¬¬iåŒºé—´å­˜åœ¨ä¸å‰é¢i-1ä¸ªåŒºé—´ä¸é‡å çš„æƒ…å†µï¼Œé‚£ä¹ˆéœ€è¦åœ¨i-1ä¸ªåŒºé—´ä¸­æ‰¾åˆ°ä¸€ä¸ªä½ç½®ä¸å’Œç¬¬iä¸ªåŒºé—´æœ‰è¦†ç›–çš„ä½ç½®ï¼Œ
+ *	å‡è®¾è¿™ä¸ªåŒºé—´ä¸ºkï¼Œé‚£ä¹ˆåŒºé—´iè¢«é€‰ä¸­åçš„å–å€¼å°±æ˜¯ max(dp[k] + 1,dp[i-1])å–å…¶ä¸­è¾ƒå¤§çš„ï¼›å¦‚æœéƒ½ä¸å†²çªé‚£ä¹ˆk = i-1äº†ï¼Œç»“è®ºä¾ç„¶æˆç«‹ã€‚
+ *	2. å¦‚æœä¸é€‰æ‹©åŒºé—´iï¼Œ è¡¨ç¤ºåŒºé—´iä¸å­˜åœ¨å’Œå‰é¢i-1ä¸ªåŒºé—´ä¸é‡å çš„æƒ…å†µï¼Œé‚£ä¹ˆæœ€å¤§å€¼å°±æ˜¯max(dp[i-1], Ei - Bi)ï¼Œå–å…¶ä¸­è¾ƒå¤§çš„ã€‚
  */
 static void isa_do_work(void){
 	
@@ -134,7 +134,7 @@ static void isa_do_work(void){
 		
 		int k = get_noncover_interval(i);
 		isa_result_set tmp_set;
-		if (k > 0){/* ±íÊ¾ ´æÔÚ²»ÖØµşµÄÇé¿ö */
+		if (k > 0){/* è¡¨ç¤º å­˜åœ¨ä¸é‡å çš„æƒ…å†µ */
 			
 			max = s_isa_res[k].max_length + (s_isa_array[i].uint_end - s_isa_array[i].uint_beg);
 			memcpy(&tmp_set, &s_isa_res[k], sizeof(isa_result_set));
@@ -158,7 +158,7 @@ static void isa_do_work(void){
 		}
 	}
 	
-	/** Êä³ö½á¹û */
+	/** è¾“å‡ºç»“æœ */
 	printf("\nresult\n max_lenght[%u]\n", s_isa_res[s_isa_cnt - 1].max_length);
 	for (i = 0; i < s_isa_res[s_isa_cnt - 1].uint_cnt; ++i){
 		

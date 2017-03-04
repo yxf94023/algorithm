@@ -1,6 +1,6 @@
 /******************************************************************************
  *\file  isa_max_overlap.cc
- *\brief  Çø¼äµ÷¶ÈËã·¨£¬ ×î´óÇø¼ä¸²¸ÇÊıÁ¿
+ *\brief  åŒºé—´è°ƒåº¦ç®—æ³•ï¼Œ æœ€å¤§åŒºé—´è¦†ç›–æ•°é‡
  *\date 2017/03/02
  *****************************************************************************/
  
@@ -9,42 +9,42 @@
 
 /**
  *\enum
- *\brief Î»ÖÃÀàĞÍ
+ *\brief ä½ç½®ç±»å‹
  */
 enum isa_pos_attr_en{
 	
-	POS_LEFT_SIDE = 1,	///< ±íÊ¾×ó±ßÎ»ÖÃ
-	POS_RIGHT_SIDE = 2,	///< ±íÊ¾ÓÒ±ßÎ»ÖÃ
+	POS_LEFT_SIDE = 1,	///< è¡¨ç¤ºå·¦è¾¹ä½ç½®
+	POS_RIGHT_SIDE = 2,	///< è¡¨ç¤ºå³è¾¹ä½ç½®
 };
 
 /**
  *\struct
- *\brief Î»ÖÃ½á¹¹
+ *\brief ä½ç½®ç»“æ„
  */
 typedef struct isa_pos_st{
 
-	unsigned char	char_id;	///< ÃªµãÖµ
-	unsigned int	pos_beg;	///< ÆğÊ¼Î»ÖÃ
-	unsigned int	pos_end;	///< ÖÕÖ¹Î»ÖÃ
+	unsigned char	char_id;	///< é”šç‚¹å€¼
+	unsigned int	pos_beg;	///< èµ·å§‹ä½ç½®
+	unsigned int	pos_end;	///< ç»ˆæ­¢ä½ç½®
 }isa_pos_st;
 
 /**
  *\struct
- *\brief µãÊôĞÔ
+ *\brief ç‚¹å±æ€§
  */
 typedef struct isa_point_st{
 	
-	unsigned int 	p_side;	///< Î»ÖÃÊôĞÔ  È¡Öµ¼û enum isa_pos_attr_en Ã¶¾Ù	
-	unsigned int	p_dis;	///< µãÔÚx·½ÏòÉÏµÄ¾àÀë£¨ÊäÈëµÄÏÈºóË³Ğò
+	unsigned int 	p_side;	///< ä½ç½®å±æ€§  å–å€¼è§ enum isa_pos_attr_en æšä¸¾	
+	unsigned int	p_dis;	///< ç‚¹åœ¨xæ–¹å‘ä¸Šçš„è·ç¦»ï¼ˆè¾“å…¥çš„å…ˆåé¡ºåº
 }isa_point_st;
 
-static isa_pos_st s_pos_array[30];		///< Î»ÖÃĞÅÏ¢
-static unsigned int s_pos_array_len;	///< Î»ÖÃĞÅÏ¢ÊıÁ¿
+static isa_pos_st s_pos_array[30];		///< ä½ç½®ä¿¡æ¯
+static unsigned int s_pos_array_len;	///< ä½ç½®ä¿¡æ¯æ•°é‡
 static isa_point_st s_point_array[60];
 
 /**
  *\fn
- *\brief »ñÈ¡ÊäÈë
+ *\brief è·å–è¾“å…¥
  */
 static void isa_get_input(void){
 	
@@ -86,7 +86,7 @@ static void isa_get_input(void){
 
 /**
  *\fn
- *\brief ½«Êı¾İ´òÓ¡³öÀ´
+ *\brief å°†æ•°æ®æ‰“å°å‡ºæ¥
  */
 static void isa_print_input(void){
 
@@ -101,13 +101,13 @@ static void isa_print_input(void){
 
 /**
  *\fn
- *\brief Ëã·¨Ë¼Ïë
- *\detail  ½«ËùÓĞµÄÎ»ÖÃµã½øĞĞÅÅĞò£¬ È»ºóÆğÊ¼µã µ½ ½áÊøµãµÄ·½Ïò ½øĞĞÎ»ÖÃÉ¨Ãè£¬µ±·¢ÏÖÒ»¸öµãÊÂÆğÊ¼µãÔò¼Ó1 \
- *			ÈôÊÇ·¢ÏÖÊÇÖÕÖ¹µãÔò¼õ1£¬ Í¨¹ıÒ»±éÉ¨Ãè ¿ÉÒÔ»ñµÃ×î´óÖØµşÊıÁ¿¡£
+ *\brief ç®—æ³•æ€æƒ³
+ *\detail  å°†æ‰€æœ‰çš„ä½ç½®ç‚¹è¿›è¡Œæ’åºï¼Œ ç„¶åèµ·å§‹ç‚¹ åˆ° ç»“æŸç‚¹çš„æ–¹å‘ è¿›è¡Œä½ç½®æ‰«æï¼Œå½“å‘ç°ä¸€ä¸ªç‚¹äº‹èµ·å§‹ç‚¹åˆ™åŠ 1 \
+ *			è‹¥æ˜¯å‘ç°æ˜¯ç»ˆæ­¢ç‚¹åˆ™å‡1ï¼Œ é€šè¿‡ä¸€éæ‰«æ å¯ä»¥è·å¾—æœ€å¤§é‡å æ•°é‡ã€‚
  */
 static void isa_do_work(void){
 	
-	/** ½«Î»ÖÃÖĞµÄËùÓĞµã½øĞĞÅÅĞò */
+	/** å°†ä½ç½®ä¸­çš„æ‰€æœ‰ç‚¹è¿›è¡Œæ’åº */
 	unsigned int i = 0, j = 0, max = 0;
 	
 	for (i = 0; i < s_pos_array_len; ++i){
@@ -119,7 +119,7 @@ static void isa_do_work(void){
 		s_point_array[i * 2 + 1].p_side = POS_RIGHT_SIDE;
 	}
 	
-	/** Ã°ÅİÅÅĞò */
+	/** å†’æ³¡æ’åº */
 	for (i = 0; i < s_pos_array_len * 2; ++i){
 		
 		for (j = i + 1; j < s_pos_array_len * 2; ++j){
@@ -138,7 +138,7 @@ static void isa_do_work(void){
 		}
 	}
 	
-	/** Ã°ÅİÅÅĞò */
+	/** å†’æ³¡æ’åº */
 	j = 0;
 	for (i = 0; i < s_pos_array_len * 2; ++i){
 		
