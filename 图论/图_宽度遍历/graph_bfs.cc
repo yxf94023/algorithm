@@ -168,10 +168,41 @@ static void print_graph(adj_graph_st *pg)
 
 /**
  *\fn
+ *\brief 图的 销毁
+ *\param[in/out] pg 图的句柄
+ */
+static void destroy_graph(adj_graph_st *pg)
+{
+	arc_st *p_tmparc = NULL;
+	unsigned int i = 0;
+	
+	assert(NULL != pg);
+	
+	///< 释放邻接表
+	for (i = 0; i < pg->ver_cnt; ++i){
+		
+		while (NULL != pg->ver_list[i].p_arc){
+			
+			p_tmparc = pg->ver_list[i].p_arc;
+			pg->ver_list[i].p_arc = p_tmparc->p_next;
+			free(p_tmparc);
+		}
+	}
+	
+	///< 释放图的节点信息
+	if (NULL != pg->ver_list){
+		
+		free(pg->ver_list);
+		pg->ver_list = NULL;
+	}
+}
+
+/**
+ *\fn
  *\brief 执行图的宽度搜索
  *\param[in] pg 图的句柄
  */
-static void exec_bfs(adj_graph_st *pg)
+static void exec_bfs(const adj_graph_st *pg)
 {
 	unsigned int *express_flag = NULL;	///< 标识节点有搜索到的标志
 	unsigned int i = 0;
@@ -226,6 +257,8 @@ int main(void)
 	print_graph(&graph);
 	
 	exec_bfs(&graph);
+	
+	destroy_graph(&graph);
 	
 	return 0;
 }
