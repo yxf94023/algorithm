@@ -44,7 +44,7 @@ int queue_enter(queue_st *p_que, void* pinfo)
 	tmp_pnode->p_next = NULL;
 	tmp_pnode->p_info = pinfo;
 	
-	///< 将信息压到队尾
+	// 将信息压到队尾
 	if (queue_empty(p_que)){
 		
 		p_que->p_front = p_que->p_rear = tmp_pnode;
@@ -67,11 +67,11 @@ int queue_outer(queue_st *p_que, void **pinfo)
 		return RET_FAILED;
 	}
 	
-	///< 获取信息
+	// 获取信息
 	tmp_pnode = p_que->p_front;
 	*pinfo = tmp_pnode->p_info;
 	
-	if (p_que->p_front == p_que->p_rear){///< 将要出队的节点是最后一个， 需要同时调整对头 和 对尾
+	if (p_que->p_front == p_que->p_rear){// 将要出队的节点是最后一个， 需要同时调整对头 和 对尾
 		
 		p_que->p_front = p_que->p_rear = NULL;
 	}else{
@@ -79,7 +79,7 @@ int queue_outer(queue_st *p_que, void **pinfo)
 		p_que->p_front = p_que->p_front->p_next;
 	}
 	
-	///< 释放空间， 防止内存泄漏
+	// 释放空间， 防止内存泄漏
 	free(tmp_pnode);
 	tmp_pnode = NULL;
 	
