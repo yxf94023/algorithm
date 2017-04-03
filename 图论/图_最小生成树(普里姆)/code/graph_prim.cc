@@ -260,7 +260,7 @@ static prim_arc_st *search_min_arc(adj_graph_st *pg, prim_arc_st *prim_array)
 }
 
 /**
- *\brief 输出dijkstra计算的最终结果
+ *\brief 输出prim计算的最终结果
  *\param[in] pg 图的句柄
  *\param[in] prim_array 顶点的辅助数字
  */
