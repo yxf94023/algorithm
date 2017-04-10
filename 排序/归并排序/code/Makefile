@@ -1,8 +1,12 @@
 object = merge_sort.o
 target = merge_sort
 
+CFLAGS = -g
+CPPFLAGS = -g
+CC = g++
+
 $(target) : $(object)
-	g++ -g -o $(target) $(object)
+	$(CC) -o $(target) $(object)
 	
 .PHONY: clean
 clean:
