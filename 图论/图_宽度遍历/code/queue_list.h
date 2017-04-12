@@ -9,6 +9,9 @@
 
 #include <stdio.h>
 
+#ifdef	__cplusplus
+extern "C" {
+#endif
 
 /** 
  *\brief 队列中的结点信息
@@ -71,5 +74,9 @@ int queue_outer(queue_st *p_que, void **pinfo);
  *\retval 0 队列不为空
  */
 int queue_empty(queue_st *p_que);
+
+#ifdef	__cplusplus
+}
+#endif
 
 #endif// __QUEUE_LIST_H_2017_03_16__

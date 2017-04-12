@@ -1,11 +1,13 @@
-graph_bfs:graph_bfs.o queue_list.o
-	g++ -o graph_bfs graph_bfs.o queue_list.o
+objects = graph_bfs.o queue_list.o
+target = graph_bfs
 
-graph_bfs.o:graph_bfs.cc queue_list.h graph_bfs.h
-	g++ -g -c graph_bfs.cc
+CC = g++
+CFLAGS = -g
+CPPFLAGS = -g
 
-queue_list.o:queue_list.cc queue_list.h
-	g++ -g -c queue_list.cc
+$(target) : $(objects)
+	$(CC) -o $(target) $(objects)
 	
+.PHONY : clean 
 clean:
-	rm graph_bfs *.o
+	-rm $(target) $(objects)

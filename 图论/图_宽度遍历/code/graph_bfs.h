@@ -6,6 +6,9 @@
 #ifndef __GRAPH_BFS_H_2017_03_20__
 #define	__GRAPH_BFS_H_2017_03_20__
 
+#ifdef	__cplusplus
+extern "C" {
+#endif
 
 #define VER_CHAR_SIZE	(10)	///< 结点的字符串长度
 
@@ -47,5 +50,9 @@ typedef struct adj_graph_st{
 	
 	ver_st			*ver_list;	///< 顶点 列表   动态数组
 }adj_graph_st;
+
+#ifdef	__cplusplus
+}
+#endif
 
 #endif//__GRAPH_BFS_H_2017_03_20__
