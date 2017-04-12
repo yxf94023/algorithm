@@ -1,4 +1,4 @@
-object = merge_sort.o
+object = main.o merge_sort.o
 target = merge_sort
 
 CFLAGS = -g
