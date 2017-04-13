@@ -9,6 +9,7 @@
 #include <string.h>
 #include <time.h>
 #include <assert.h>
+#include <errno.h>
 
 static int s_len = 0;		///< 待排序的数列长度
 static int s_ary[10000];	///< 存放数列
@@ -125,6 +126,42 @@ int agn_fun(void **lopr, void *ropr)
 	return 1;
 }
 
+/**
+ *\brief 归并排序中 获取排序结果
+ *\param[in] len 获取结果的数据规模 
+ *\param[in,out] res_ary 等待排序的数据
+ *\param[in] merge_ary 归并排序后的结果
+ *\retval 1 获取结果成功
+ *\retval 0 获取结果失败
+ */
+int get_res_fun(unsigned int len, void *res_ary, void **merge_ary)
+{
+	int *buf = NULL, **ary = (int**)0, *res = NULL;
+	unsigned int i = 0;
+	
+	assert(0 <= len);
+	assert(NULL != res_ary);
+	assert((void**)0 != merge_ary);
+	
+	buf = (int*) malloc (len * sizeof(int));
+	if (NULL == buf){
+		
+		printf("malloc failed, errno(%d)\n", errno);
+		return 0;
+	}
+	ary = (int **)merge_ary;
+	res = (int *)res_ary;
+	
+	for (i = 0; i < len; ++i){
+		
+		buf[i] = *ary[i];	// 取指针指向的内容
+	}
+	
+	memcpy(res, buf, len * sizeof(int));
+	
+	return 1;
+}
+
 int main(int argc, char **argv)
 {
 	creat_ary();
@@ -133,7 +170,7 @@ int main(int argc, char **argv)
 	
 	merge_init(s_len, (void *)s_ary, set_fun, cmp_fun, agn_fun);
 	
-	merge_sort(0, s_len - 1);
+	merge_sort(s_len, (void *)s_ary, get_res_fun);
 	
 	merge_destory();
 	

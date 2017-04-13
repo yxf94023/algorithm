@@ -42,6 +42,16 @@ typedef int (*merge_cmp_fun)(void *cmp1, void *cmp2);
 typedef int (*merge_agn_fun)(void **lopr, void *ropr);
 
 /**
+ *\brief 归并排序中 获取排序结果
+ *\param[in] len 获取结果的数据规模
+ *\param[in,out] res_ary 等待排序的数据
+ *\param[in] merge_ary 归并排序后的结果
+ *\retval 1 获取结果成功
+ *\retval 0 获取结果失败
+ */
+typedef int (*merge_res_fun)(unsigned int len, void *res_ary, void **merge_ary);
+
+/**
  *\brief 初始化归并排序环境
  *\param[in] len 待排序的规模
  *\param[in] disorder_array 待排序的数组
@@ -63,10 +73,11 @@ void merge_destory(void);
 
 /**
  *\brief 归并排序
- *\param[in] beg 起始位置下标
- *\param[in] end 结束位置下标
+ *\param[in] len 获取排序结果结果规模
+ *\param[in,out] res_array 获取排序结果
+ *\param[in] f_res 获取结果的回调
  */
-void merge_sort(unsigned int beg, unsigned int end);			
+void merge_sort(unsigned int len, void *res_array, merge_res_fun f_res);		
 
 #ifdef	__cplusplus
 }

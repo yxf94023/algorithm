@@ -69,11 +69,11 @@ int merge_init(unsigned int len, void *disorder_array,
 }
 
 /**
- *\brief 归并排序
+ *\brief 执行 归并排序
  *\param[in] beg 起始位置下标
  *\param[in] end 结束位置下标
  */
-void merge_sort(unsigned int beg, unsigned int end)
+static void __msort(unsigned int beg, unsigned int end)
 {
 	unsigned int mid = 0;
 	unsigned int i = 0, j = 0, k = 0;
@@ -84,8 +84,8 @@ void merge_sort(unsigned int beg, unsigned int end)
 	if (end - beg >= 1){
 		
 		mid = (end - beg) / 2;
-		merge_sort(beg, beg + mid);
-		merge_sort(beg + mid + 1, end);
+		__msort(beg, beg + mid);
+		__msort(beg + mid + 1, end);
 		
 		// 归并 [beg, beg + mid]  和 [beg + mid + 1, end] 两个有序单元
 		for (i = beg, j = beg + mid + 1, k = beg; i <= beg + mid && j <= end; ++k){
@@ -120,6 +120,25 @@ void merge_sort(unsigned int beg, unsigned int end)
 		
 		// end == beg 表示只有一个， 不处理
 	}	
+}
+
+/**
+ *\brief 归并排序
+ *\param[in] len 获取排序结果结果规模
+ *\param[in,out] res_array 获取排序结果
+ *\param[in] f_res 获取结果的回调
+ */
+void merge_sort(unsigned int len, void *res_array, merge_res_fun f_res)
+{
+	__msort(0, merge_len - 1);
+	
+	if (len <= 0 || NULL == res_array || NULL == f_res){// 不期望返回结果
+	
+		return;
+	}
+	
+	len = len > merge_len ? merge_len : len;	// 取小的
+	f_res(len, res_array, s_merge_array);
 }
 
 /**
