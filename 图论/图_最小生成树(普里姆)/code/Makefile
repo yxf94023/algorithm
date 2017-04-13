@@ -1,8 +1,12 @@
 object = graph_prim.o
 target = graph_prim
 
+CC = g++
+CFLAGS = -g
+CPPFLAGS = -g
+
 $(target) : $(object)
-	g++ -o $(target) -g -O0 $(object)
+	$(CC) -o $(target) $(object)
 	
 .PHONY: clean
 clean:

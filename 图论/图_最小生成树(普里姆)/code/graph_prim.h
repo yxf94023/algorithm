@@ -6,6 +6,9 @@
 #ifndef __GRAPH_PRIM_H_2017_04_03__
 #define	__GRAPH_PRIM_H_2017_04_03__
 
+#ifdef __cplusplus
+extern "C"{
+#endif
 
 #define VER_CHAR_SIZE	(10)	///< 结点的字符串长度
 
@@ -74,5 +77,9 @@ typedef struct prim_arc_st{
 	unsigned int 	weight;		///< 边的权重
 	unsigned int 	status;		///< 边的状态 0,1,2
 }prim_arc_st;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif//__GRAPH_PRIM_H_2017_04_03__
