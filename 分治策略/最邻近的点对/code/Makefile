@@ -1,0 +1,13 @@
+objects = main.o closest_pair.o
+target = closest_pair
+
+CC = g++
+CFLAGS = -g
+CPPFLAGS = -g
+
+$(target) : $(objects)
+	$(CC) $(target) -o $(objects)
+	
+.PHONY: clean
+clean:
+	-rm $(target) $(objects)
