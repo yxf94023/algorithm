@@ -6,7 +6,7 @@ CFLAGS = -g
 CPPFLAGS = -g
 
 $(target) : $(objects)
-	$(CC) $(target) -o $(objects)
+	$(CC) -o $(target) $(objects)
 	
 .PHONY: clean
 clean:
