@@ -18,8 +18,8 @@ extern "C"{
  */
 typedef struct point_st{
 	
-	int	x;	///< 坐标x
-	int y;	///< 坐标y
+	double	x;	///< 坐标x
+	double  y;	///< 坐标y
 }point_st;
 
 /**
@@ -29,7 +29,17 @@ typedef struct closest_pair_st{
 	
 	point_st p1;	///< 第一个点
 	point_st p2;	///< 第二个点
+	double 	 d;		///< 两点间的距离
 }closest_pair_st;
+
+/**
+ *\brief 点的表结构，按照x或y轴进行排序时使用
+ */
+typedef struct ptables_st{
+	
+	unsigned int	idx;	///< 点在点的集合中位置
+	double			xy;		///< x轴 或 y轴的坐标
+}ptables_st;
 
 /**
  *\brief 获取最邻近的点对
