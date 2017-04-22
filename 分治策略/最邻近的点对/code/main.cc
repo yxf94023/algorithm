@@ -30,7 +30,7 @@ static int get_input(void)
 	printf("一行一个点 例如：4,5   其中4为x轴坐标 5为y轴坐标\n");
 	for (i = 0; i < s_points_num; ++i){
 		
-		scanf("%d,%d", &s_points[i].x, &s_points[i].y);
+		scanf("%lf,%lf", &s_points[i].x, &s_points[i].y);
 	}
 	
 	return 0;

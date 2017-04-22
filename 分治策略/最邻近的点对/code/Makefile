@@ -1,4 +1,4 @@
-objects = main.o closest_pair.o
+objects = main.o closest_pair.o merge_sort.o
 target = closest_pair
 
 CC = g++
