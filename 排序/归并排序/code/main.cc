@@ -1,5 +1,5 @@
 /**
- *\file merge_sort.cc
+ *\file main.cc
  *\brief πÈ≤¢≈≈–Ú
  *\date 2017/04/10
  */
@@ -158,6 +158,9 @@ int get_res_fun(unsigned int len, void *res_ary, void **merge_ary)
 	}
 	
 	memcpy(res, buf, len * sizeof(int));
+	
+	free(buf);
+	buf = NULL;
 	
 	return 1;
 }
