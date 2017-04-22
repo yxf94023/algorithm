@@ -7,9 +7,11 @@
 #include "closest_pair.h"
 #include "merge_sort.h"
 #include <stdio.h>
+#include <stdlib.h> 
 #include <string.h>
 #include <assert.h>
 #include <math.h>
+#include <errno.h>
 
 static ptables_st x_ptables[MAX_POINTS];	// x轴排序列表
 static ptables_st y_ptables[MAX_POINTS];	// y轴排序列表
@@ -53,8 +55,8 @@ int set_fun(unsigned int len, void *disoder_ary, void **merge_ary)
  */
 int cmp_fun(void *cmp1, void *cmp2)
 {
-    int *int_cmp1 = NULL;
-    int *int_cmp2 = NULL;
+    ptables_st *int_cmp1 = NULL;
+    ptables_st *int_cmp2 = NULL;
 
     assert(NULL != cmp1);
     assert(NULL != cmp2);
@@ -104,7 +106,7 @@ int agn_fun(void **lopr, void *ropr)
  */
 int get_res_fun(unsigned int len, void *res_ary, void **merge_ary)
 {
-    ptables_st *buf = NULL, **ary = (int**)0, *res = NULL;
+    ptables_st *buf = NULL, **ary = (ptables_st**)0, *res = NULL;
     unsigned int i = 0;
     
     assert(0 <= len);
@@ -289,7 +291,7 @@ int get_closest_pair(point_st *plist, unsigned int pnum, closest_pair_st *pair)
 	// 2.查找最小临近点对
 	__do_closest_pair(plist, pnum, 0, pnum, pair);
 	
-	return 0;
+	return 1;
 }
 
 

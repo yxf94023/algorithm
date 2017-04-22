@@ -45,6 +45,7 @@ int main(void)
 	if (get_closest_pair(s_points, s_points_num, &pair)){
 	
 		// Êä³ö½á¹û
+		printf("(%lf, %lf)<->(%lf, %lf) dis[%lf]\n", pair.p1.x, pair.p1.y, pair.p2.x, pair.p2.y, pair.d);
 	}
 	
 	return 0;
